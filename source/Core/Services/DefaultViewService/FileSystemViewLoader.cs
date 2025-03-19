@@ -51,6 +51,10 @@ namespace IdentityServer3.Core.Services.Default
         /// <returns></returns>
         public Task<string> LoadAsync(string page)
         {
+            if (page == null || page.Contains("../") || page.Contains(@"..\"))
+            {
+                throw new ArgumentException("Invalid file path");
+            }
             if (Directory.Exists(directory))
             {
                 var name = page + ".html";
